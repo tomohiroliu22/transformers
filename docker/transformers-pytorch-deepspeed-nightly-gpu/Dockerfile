@@ -43,9 +43,15 @@ RUN python3 -m pip uninstall -y deepspeed
 
 # For `torchdynamo` tests
 # (see https://github.com/huggingface/transformers/pull/17765)
-RUN git clone https://github.com/pytorch/functorch
-RUN python3 -m pip install --no-cache-dir ./functorch[aot]
-RUN cd functorch && python3 setup.py develop
+
+# ----------------------------------------------------------------------------------------------------
+# Not working so far
+
+# RUN git clone https://github.com/pytorch/functorch
+# RUN python3 -m pip install --no-cache-dir ./functorch[aot]
+# RUN cd functorch && python3 setup.py develop
+
+# ----------------------------------------------------------------------------------------------------
 
 RUN git clone https://github.com/pytorch/torchdynamo
 RUN python3 -m pip install -r ./torchdynamo/requirements.txt
