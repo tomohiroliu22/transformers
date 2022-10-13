@@ -27,40 +27,40 @@ env:
   RUN_PT_TF_CROSS_TESTS: 1
 
 jobs:
-  check_runner_status:
-    name: Check Runner Status
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout transformers
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-
-      - name: Check Runner Status
-        # Temporarily running on Past CI runners
-        # run: python utils/check_self_hosted_runner.py --target_runners single-gpu-scheduled-ci-runner-docker,multi-gpu-scheduled-ci-runner-docker --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
-        run: python utils/check_self_hosted_runner.py --target_runners single-gpu-past-ci-runner-docker,multi-gpu-past-ci-runner-docker --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
-
-  check_runners:
-    name: Check Runners
-    needs: check_runner_status
-    strategy:
-      matrix:
-        machine_type: [single-gpu, multi-gpu]
-    # Temporarily running on Past CI runners
-    # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
-    runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
-    container:
-      image: huggingface/transformers-all-latest-torch-nightly-gpu
-      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
-    steps:
-      - name: NVIDIA-SMI
-        run: |
-          nvidia-smi
+#  check_runner_status:
+#    name: Check Runner Status
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout transformers
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 2
+#
+#      - name: Check Runner Status
+#        # Temporarily running on Past CI runners
+#        # run: python utils/check_self_hosted_runner.py --target_runners single-gpu-scheduled-ci-runner-docker,multi-gpu-scheduled-ci-runner-docker --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
+#        run: python utils/check_self_hosted_runner.py --target_runners single-gpu-past-ci-runner-docker,multi-gpu-past-ci-runner-docker --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
+#
+#  check_runners:
+#    name: Check Runners
+#    needs: check_runner_status
+#    strategy:
+#      matrix:
+#        machine_type: [single-gpu, multi-gpu]
+#    # Temporarily running on Past CI runners
+#    # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
+#    runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
+#    container:
+#      image: huggingface/transformers-all-latest-torch-nightly-gpu
+#      options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
+#    steps:
+#      - name: NVIDIA-SMI
+#        run: |
+#          nvidia-smi
 
   setup:
     name: Setup
-    needs: check_runners
+#    needs: check_runners
     strategy:
       matrix:
         machine_type: [single-gpu, multi-gpu]
