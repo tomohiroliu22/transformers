@@ -27,7 +27,7 @@ RUN git clone https://github.com/huggingface/transformers && cd transformers && 
 # Temporarily trick to install specific nightly version for torch 1.13 pre-release
 # Should be removed later
 
-RUN python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio -f https://download.pytorch.org/whl/test/$CUDA/torch_test.html
+RUN python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio torchtext -f https://download.pytorch.org/whl/test/$CUDA/torch_test.html
 
 # ----------------------------------------------------------------------------------------------------
 
