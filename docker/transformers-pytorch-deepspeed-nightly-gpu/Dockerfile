@@ -1,10 +1,11 @@
-FROM nvcr.io/nvidia/pytorch:21.03-py3
+# https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_22-04.html#rel_22-04
+FROM nvcr.io/nvidia/pytorch:22.04-py3
 LABEL maintainer="Hugging Face"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Example: `cu102`, `cu113`, etc.
-ARG CUDA='cu113'
+ARG CUDA='cu116'
 
 RUN apt -y update
 RUN apt install -y libaio-dev
@@ -26,9 +27,7 @@ RUN git clone https://github.com/huggingface/transformers && cd transformers && 
 # Temporarily trick to install specific nightly version for torch 1.13 pre-release
 # Should be removed later
 
-RUN python3 -m pip install --no-cache-dir -U torch==1.13.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113
-RUN python3 -m pip install --no-cache-dir -U torchvision==0.14.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113
-RUN python3 -m pip install --no-cache-dir -U torchaudio==0.13.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113
+RUN python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio -f https://download.pytorch.org/whl/test/$CUDA/torch_test.html
 
 # ----------------------------------------------------------------------------------------------------
 
