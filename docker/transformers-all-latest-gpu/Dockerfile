@@ -42,7 +42,7 @@ RUN echo torch=$VERSION
 
 RUN [ "$PYTORCH" != "pre" ] && python3 -m pip install --no-cache-dir -U $VERSION torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/$CUDA || echo "Nightly version"
 
-RUN [ "$PYTORCH" = "pre" ] && python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/test/$$CUDA/torch_test.html || echo "torch"
+RUN [ "$PYTORCH" = "pre" ] && python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/test/$CUDA/torch_test.html || echo "torch"
 
 # ----------------------------------------------------------------------------------------------------
 
