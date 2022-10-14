@@ -3,7 +3,7 @@ name: Build docker images (scheduled)
 on:
   push:
     branches:
-      - run_re_enable_nightly_ci_no
+      - run_re_enable_nightly_ci
 
 concurrency:
   group: docker-images-builds

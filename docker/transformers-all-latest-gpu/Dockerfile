@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
+
 LABEL maintainer="Hugging Face"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -12,8 +13,8 @@ SHELL ["sh", "-lc"]
 ARG PYTORCH='1.12.1'
 # (not always a valid torch version)
 ARG INTEL_TORCH_EXT='1.11.0'
-# Example: `cu102`, `cu113`, etc.
-ARG CUDA='cu113'
+# Example: `cu102`, `$CUDA`, etc.
+ARG CUDA='cu116'
 
 RUN apt update
 RUN apt install -y git libsndfile1-dev tesseract-ocr espeak-ng python3 python3-pip ffmpeg git-lfs
@@ -41,9 +42,7 @@ RUN echo torch=$VERSION
 
 RUN [ "$PYTORCH" != "pre" ] && python3 -m pip install --no-cache-dir -U $VERSION torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/$CUDA || echo "Nightly version"
 
-RUN [ "$PYTORCH" == "pre" ] && python3 -m pip install --no-cache-dir -U torch==1.13.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113 || echo "torch"
-RUN [ "$PYTORCH" == "pre" ] && python3 -m pip install --no-cache-dir -U torchvision==0.14.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113 || echo "torchvision"
-RUN [ "$PYTORCH" == "pre" ] && python3 -m pip install --no-cache-dir -U torchaudio==0.13.0.dev20220914+cu113 --extra-index-url https://download.pytorch.org/whl/nightly/cu113 || echo "torchaudio"
+RUN [ "$PYTORCH" == "pre" ] && python3 -m pip install --no-cache-dir -U torch==1.13.0+$CUDA torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/test/$$CUDA/torch_test.html || echo "torch"
 
 # ----------------------------------------------------------------------------------------------------
 
