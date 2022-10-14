@@ -14,7 +14,7 @@ on:
 #    - cron: "0 2 * * *"
   push:
     branches:
-      - run_re_enable_nightly_ci_no
+      - run_re_enable_nightly_ci
 
 env:
   HF_HOME: /mnt/cache
@@ -69,7 +69,7 @@ jobs:
     # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
     runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
     container:
-      image: huggingface/transformers-all-latest-torch-nightly-gpu
+      image: huggingface/transformers-all-latest-torch-nightly-gpu-test
       options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -107,7 +107,7 @@ jobs:
     # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
     runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
     container:
-      image: huggingface/transformers-all-latest-torch-nightly-gpu
+      image: huggingface/transformers-all-latest-torch-nightly-gpu-test
       options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
     needs: setup
     steps:
@@ -162,7 +162,7 @@ jobs:
     # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
     runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
     container:
-      image: huggingface/transformers-all-latest-torch-nightly-gpu
+      image: huggingface/transformers-all-latest-torch-nightly-gpu-test
       options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
     needs: setup
     steps:
@@ -218,7 +218,7 @@ jobs:
     runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
     needs: setup
     container:
-      image: huggingface/transformers-pytorch-deepspeed-nightly-gpu
+      image: huggingface/transformers-pytorch-deepspeed-nightly-gpu-test
       options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
     steps:
       - name: Update clone
