@@ -61,8 +61,8 @@ RUN python3 -m pip install --no-cache-dir -U nvidia-pyindex
 RUN python3 -m pip install --no-cache-dir -U nvidia-tensorrt==8.2.4.2
 
 # install torch_tensorrt (fx path)
-RUN git clone https://github.com/pytorch/TensorRT.git
-RUN cd TensorRT/py && python3 setup.py install --fx-only
+# RUN git clone https://github.com/pytorch/TensorRT.git
+# RUN cd TensorRT/py && python3 setup.py install --fx-only
 
 # When installing in editable mode, `transformers` is not recognized as a package.
 # this line must be added in order for python to be aware of transformers.
