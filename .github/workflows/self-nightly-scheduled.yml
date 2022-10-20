@@ -232,6 +232,7 @@ jobs:
       - name: Pre build DeepSpeed *again*
         working-directory: /workspace
         run: |
+          rm -rf /opt/conda/lib/python3.8/site-packages/fused_layer_norm_cuda.cpython-38-x86_64-linux-gnu.so
           python3 -m pip uninstall -y deepspeed
           rm -rf DeepSpeed
           git clone https://github.com/microsoft/DeepSpeed && cd DeepSpeed && rm -rf build
