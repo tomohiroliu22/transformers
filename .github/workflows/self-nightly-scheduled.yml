@@ -14,7 +14,7 @@ on:
 #    - cron: "0 2 * * *"
   push:
     branches:
-      - run_re_enable_nightly_ci_no
+      - run_re_enable_nightly_ci
 
 env:
   HF_HOME: /mnt/cache
