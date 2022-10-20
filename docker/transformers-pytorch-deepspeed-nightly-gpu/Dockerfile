@@ -40,6 +40,9 @@ RUN python3 -m pip uninstall -y deepspeed
 # RUN git clone https://github.com/microsoft/DeepSpeed && cd DeepSpeed && rm -rf build && \
 #    DS_BUILD_CPU_ADAM=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_AIO=1 DS_BUILD_UTILS=1 python3 -m pip install . --global-option="build_ext" --global-option="-j8" --no-cache -v --disable-pip-version-check 2>&1
 
+# Avoid `E   ImportError: /opt/conda/lib/python3.8/site-packages/torch_tensorrt/lib/libtorchtrt.so: undefined symbol: _ZNK3c1010TensorImpl36is_contiguous_nondefault_policy_implENS_12MemoryFormatE`
+RUN python3 -m pip uninstall -y torch-tensorrt
+
 # For `torchdynamo` tests
 # (see https://github.com/huggingface/transformers/pull/17765)
 
