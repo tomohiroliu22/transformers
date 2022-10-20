@@ -211,7 +211,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        machine_type: [single-gpu, multi-gpu]
+        machine_type: [single-gpu]
         # machine_type: [single-gpu]
     # Temporarily running on Past CI runners
     # runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
