@@ -52,13 +52,13 @@ RUN python3 -m pip uninstall -y deepspeed
 
 # ----------------------------------------------------------------------------------------------------
 
-RUN git clone https://github.com/pytorch/torchdynamo
-RUN python3 -m pip install -r ./torchdynamo/requirements.txt
-RUN cd torchdynamo && python3 setup.py develop
+# RUN git clone https://github.com/pytorch/torchdynamo
+# RUN python3 -m pip install -r ./torchdynamo/requirements.txt
+# RUN cd torchdynamo && python3 setup.py develop
 
 # install TensorRT
-RUN python3 -m pip install --no-cache-dir -U nvidia-pyindex
-RUN python3 -m pip install --no-cache-dir -U nvidia-tensorrt==8.2.4.2
+# RUN python3 -m pip install --no-cache-dir -U nvidia-pyindex
+# RUN python3 -m pip install --no-cache-dir -U nvidia-tensorrt==8.2.4.2
 
 # install torch_tensorrt (fx path)
 # RUN git clone https://github.com/pytorch/TensorRT.git
