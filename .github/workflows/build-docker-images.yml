@@ -3,7 +3,7 @@ name: Build docker images (scheduled)
 on:
   push:
     branches:
-      - run_update_ci_with_pytorch_1_13
+      - run_update_ci_with_pytorch_1_13_no
 #  repository_dispatch:
 #  workflow_call:
 #    inputs:
