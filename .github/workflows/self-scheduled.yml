@@ -355,6 +355,7 @@ jobs:
       - name: Run all tests on GPU
         working-directory: /workspace/transformers
         run: |
+          python -m pip install --no-cache-dir -U sentencepiece==0.1.95
           python -m pytest -v --make-reports=${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu tests/deepspeed tests/extended
 
       - name: Failure short reports
