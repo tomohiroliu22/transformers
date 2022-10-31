@@ -490,6 +490,8 @@ def fill_result_with_error(result, error, models_to_create):
             for model_arch in models_to_create[framework]:
                 result[framework][model_arch.__name__] = {"model": None, "checkpoint": None, "error": error}
 
+    result["processor"] = {type(p).__name__: p.__class__.__name__ for p in result["processor"]}
+
 
 def upload_model(model_dir, organization):
     """Upload the tiny models"""
@@ -802,9 +804,6 @@ def build(config_class, models_to_create, output_dir):
         error = f"Failed to convert the processors: {e}"
         result["warnings"].append(error)
 
-    # update `result["processor"]`
-    result["processor"] = {type(p).__name__: p.__class__.__name__ for p in processors}
-
     if len(result["processor"]) == 0:
         error = f"No processor could be converted for {config_class.__name__}."
         fill_result_with_error(result, error, models_to_create)
@@ -841,6 +840,9 @@ def build(config_class, models_to_create, output_dir):
 
     if result["warnings"]:
         logger.warning(result["warnings"])
+
+    # update `result["processor"]`
+    result["processor"] = {type(p).__name__: p.__class__.__name__ for p in processors}
 
     for pytorch_arch in models_to_create["pytorch"]:
         result["pytorch"][pytorch_arch.__name__] = {}
