@@ -137,7 +137,7 @@ def get_config_class_from_processor_class(processor_class):
     """
 
     processor_prefix = processor_class.__name__
-    for postfix in ["Processor", "TokenizerFast", "Tokenizer", "FeatureExtractor"]:
+    for postfix in ["TokenizerFast", "Tokenizer", "ImageProcessor", "FeatureExtractor", "Processor"]:
         processor_prefix = processor_prefix.replace(postfix, "")
 
     # `Wav2Vec2CTCTokenizer` -> `Wav2Vec2Config`
