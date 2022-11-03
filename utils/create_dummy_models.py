@@ -703,6 +703,13 @@ def get_config_overrides(config_class, processors):
     # Get new special token ids by setting `vocab_size` with the new value in the model tester
     # TODO: Make sure model tester accept `vocab_size` in `__init__` (otherwise, we need to handle errors)
     model_tester_kwargs = {"vocab_size": vocab_size}
+
+    # CLIP-like models have `text_model_tester` and `vision_model_tester`, and we need to pass `vocab_size` to
+    # `text_model_tester` via `text_kwargs`. Same trick is required for `Flava` too.
+    if config_class.__name__ in ["CLIPConfig", "GroupViTConfig", "OwlViTConfig", "XCLIPConfig", "FlavaConfig"]:
+        del model_tester_kwargs["vocab_size"]
+        model_tester_kwargs["text_kwargs"] = {"vocab_size": vocab_size}
+
     _tiny_config = get_tiny_config(config_class, **model_tester_kwargs)
 
     # handle the possibility of `text_config` inside `_tiny_config` for clip-like models (`owlvit`, `groupvit`, etc.)
